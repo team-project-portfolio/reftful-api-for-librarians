@@ -1,10 +1,14 @@
 import './config/db';
 import cors from 'cors';
 import express from 'express';
-import { bookRouter } from './routers';
-import { errorLogger, errorHandler } from './middlewares';
+import globalRouter from './routers';
+import {
+  errorLogger,
+  errorHandler,
+  appErrorHandler,
+  notFoundErrorHandler,
+} from './middlewares';
 import morgan from 'morgan';
-import * as dotenv from 'dotenv';
 
 const app = express();
 
@@ -16,10 +20,11 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api', bookRouter);
+app.use('/api', globalRouter);
 
-// 미들웨어 (에러를 error.log 파일에 기록 및, 에러를 프론트엔드에 전달)
 app.use(errorLogger);
+app.use(notFoundErrorHandler);
 app.use(errorHandler);
+app.use(appErrorHandler);
 
 export { app };

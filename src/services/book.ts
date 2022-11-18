@@ -1,24 +1,52 @@
-import { getBookModel } from '../db';
+import {
+  IBookModel,
+  createBookModel,
+  getBooksModel,
+  getBookModel,
+  updateBookModel,
+  deleteBookModel,
+} from '../db';
+import { IBook } from '../types/book';
 
-interface test {
-  test(): void;
-}
+class BookService {
+  constructor(private BookModel: IBookModel) {}
 
-class BookService implements test {
-  constructor(private BookModel) {}
+  async createBook(bookInfo: IBook): Promise<IBook> {
+    const newBook: IBook = await this.BookModel.create(bookInfo);
+    return newBook;
+  }
 
   async getBooks() {
-    this.test();
-    const model = this.BookModel.findAll();
-    return model;
+    const books: IBook[] = await this.BookModel.findAll();
+    return books;
   }
-
-  test(): void {
-    console.log('테스트 지롱');
-    return;
+  async getBook(bookId: string) {
+    const book: IBook | null = await this.BookModel.findOne(bookId);
+    return book;
+  }
+  async updateBook(bookId: string, updateInfo: IBook) {
+    const updatedBook: IBook | null = await this.BookModel.update(
+      bookId,
+      updateInfo,
+    );
+    return updatedBook;
+  }
+  async deleteBook(bookId: string): Promise<IBook | null> {
+    const deletedBook: IBook | null = await this.BookModel.delete(bookId);
+    return deletedBook;
   }
 }
 
+const CreateBookService = new BookService(createBookModel);
+const GetBooksService = new BookService(getBooksModel);
 const GetBookService = new BookService(getBookModel);
+const UpdateBookService = new BookService(updateBookModel);
+const DeleteBookService = new BookService(deleteBookModel);
 
-export { GetBookService };
+export {
+  CreateBookService,
+  GetBooksService,
+  GetBookService,
+  UpdateBookService,
+  DeleteBookService,
+};

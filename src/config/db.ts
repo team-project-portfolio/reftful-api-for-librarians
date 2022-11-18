@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
-const DB_URL =
-  process.env.DB_URL ||
-  'MongoDB 서버 주소가 설정되지 않았습니다. env 파일도 필요합니다.\n';
+const DB_URL: string =
+  process.env.NODE_ENV === 'production'
+    ? process.env.DB_URL ||
+      'MongoDB 서버 주소가 설정되지 않았습니다. env 파일을 확인해 주세요!\n'
+    : process.env.LOCAL_URL ||
+      'MongoDB 서버 주소가 설정되지 않았습니다. env 파일을 확인해 주세요!\n';
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;

@@ -1,13 +1,20 @@
 import { Response, Request, NextFunction } from 'express';
-import { GetBookService } from '../services';
+import {
+  CreateBookService,
+  GetBooksService,
+  GetBookService,
+  UpdateBookService,
+  DeleteBookService,
+} from '../services';
 
 const createBook = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
-  const books = await GetBookService.getBooks();
-  res.status(200).json({ books });
+  const bookInfo = { ...req.body };
+  const newBook = await CreateBookService.createBook(bookInfo);
+  res.status(201).json(newBook);
 };
 
 const getBooks = async (
@@ -15,8 +22,8 @@ const getBooks = async (
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
-  const books = await GetBookService.getBooks();
-  res.status(200).json({ books });
+  const books = await GetBooksService.getBooks();
+  res.status(200).json(books);
 };
 
 const getBook = async (
@@ -24,8 +31,9 @@ const getBook = async (
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
-  const books = await GetBookService.getBooks();
-  res.status(200).json({ books });
+  const bookId = req.params.id;
+  const book = await GetBookService.getBook(bookId);
+  res.status(200).json(book);
 };
 
 const updateBook = async (
@@ -33,8 +41,10 @@ const updateBook = async (
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
-  const books = await GetBookService.getBooks();
-  res.status(200).json({ books });
+  const bookId = req.params.id;
+  const updateInfo = { ...req.body };
+  const updatedBook = await UpdateBookService.updateBook(bookId, updateInfo);
+  res.status(200).json(updatedBook);
 };
 
 const deleteBook = async (
@@ -42,8 +52,9 @@ const deleteBook = async (
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
-  const books = await GetBookService.getBooks();
-  res.status(200).json({ books });
+  const bookId = req.params.id;
+  const deletedBook = await DeleteBookService.deleteBook(bookId);
+  res.status(200).json(deletedBook);
 };
 
 export { createBook, getBooks, getBook, updateBook, deleteBook };

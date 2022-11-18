@@ -28,27 +28,17 @@ function errorLogger(
   res: Response,
   next: NextFunction,
 ) {
-  const current_datetime = new Date();
-
-  const dateFormatted =
-    current_datetime.getFullYear() +
-    '-' +
-    (current_datetime.getMonth() + 1) +
-    '-' +
-    current_datetime.getDate() +
-    ' ' +
-    current_datetime.getHours() +
-    ':' +
-    current_datetime.getMinutes() +
-    ':' +
-    current_datetime.getSeconds();
+  const now = new Date();
+  const timestamp = `${now.toLocaleDateString(
+    'ko-KR',
+  )} ${now.toLocaleTimeString('ko-KR')}`;
 
   const method = req.method;
   const url = req.url;
   const errorContent = error.stack;
 
-  logger.error(`[${dateFormatted}] ${method}:${url}\n${errorContent}\n\n`);
-  const errorLog = `[${dateFormatted}] ${method}:${url}\n${errorContent}\n\n`;
+  logger.error(`[${timestamp}] ${method}:${url}\n${errorContent}\n\n`);
+  const errorLog = `[${timestamp}] ${method}:${url}\n${errorContent}\n\n`;
 
   fs.appendFile('error.log', errorLog, (err) => {
     if (err) {
