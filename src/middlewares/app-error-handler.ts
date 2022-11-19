@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request as Req, Response as Res, NextFunction as Next } from 'express';
 
 class AppError extends Error {
   status: number;
@@ -12,10 +12,10 @@ class AppError extends Error {
 
 const appErrorHandler = (
   err: AppError,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+  req: Req,
+  res: Res,
+  next: Next,
+): Res => {
   const now = new Date();
   const timestamp = `${now.toLocaleDateString(
     'ko-KR',
@@ -34,7 +34,7 @@ const appErrorHandler = (
     message = '알 수 없는 오류가 발생했어요 :( 잠시 후에 다시 시도해 주세요!',
   } = err;
 
-  return res.status(status).json({ message });
+  return res.status(status).json(message);
 };
 
 export { AppError, appErrorHandler };

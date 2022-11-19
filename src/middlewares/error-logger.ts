@@ -37,7 +37,7 @@ function errorLogger(
   const url = req.url;
   const errorContent = error.stack;
 
-  logger.error(`[${timestamp}] ${method}:${url}\n${errorContent}\n\n`);
+  // logger.error(`[${timestamp}] ${method}:${url}\n${errorContent}\n\n`);
   const errorLog = `[${timestamp}] ${method}:${url}\n${errorContent}\n\n`;
 
   fs.appendFile('error.log', errorLog, (err) => {

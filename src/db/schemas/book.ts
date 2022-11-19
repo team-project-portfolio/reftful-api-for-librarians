@@ -1,11 +1,11 @@
-import { model, Schema } from 'mongoose';
+import { Schema, model, connection, AnyObject } from 'mongoose';
 import { IBook } from '../../types/book';
 
 const BookSchema: Schema = new Schema(
   {
     id: {
       type: String,
-      required: true,
+      required: false,
     },
     name: {
       type: String,
@@ -42,5 +42,23 @@ const BookSchema: Schema = new Schema(
   },
   { timestamps: true },
 );
+
+BookSchema.pre('save', async function () {
+  const sequenceCollection = connection.collection('sequences');
+
+  const sequence = await sequenceCollection.findOneAndUpdate(
+    {
+      collectionName: 'books',
+    },
+    { $inc: { value: 1 } },
+    {
+      upsert: true,
+      returnDocument: 'after',
+    },
+  );
+
+  const id: string = sequence?.value?.value;
+  this.set({ id });
+});
 
 export default model<IBook>('Book', BookSchema);

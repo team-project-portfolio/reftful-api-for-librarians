@@ -23,5 +23,5 @@ export interface BookInfo {
 }
 
 export interface BookInfoById extends BookInfo {
-  id: string;
+  id?: string;
 }

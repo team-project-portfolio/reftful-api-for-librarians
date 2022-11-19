@@ -1,0 +1,49 @@
+[2022. 11. 19. 오후 7:08:45] POST:/api/books
+리소스 중복: 해당 도서의 정보가 이미 존재합니다. 기존 도서를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
+[2022. 11. 19. 오후 7:14:03] POST:/api/books
+리소스 중복: 해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
+[2022. 11. 19. 오후 7:14:21] POST:/api/books
+리소스 중복: 해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
+[2022. 11. 19. 오후 7:17:43] POST:/api/books
+리소스 중복: 해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
+[2022. 11. 19. 오후 7:17:56] POST:/api/books
+리소스 중복: 해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
+[2022. 11. 19. 오후 7:18:00] POST:/api/books
+리소스 중복: 해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
+[2022. 11. 19. 오후 7:22:51] POST:/api/books
+리소스 중복: 해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!
+    at CreateBookService.createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/services/book.ts:10:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async createBook (/home/kimkeonu/study/kku-homework-api-for-librarian/src/controllers/book.ts:12:19)
+    at async /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/async-handler.ts:6:7
+
