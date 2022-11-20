@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { createBookValidator } from '../middlewares/validations';
 import {
   createBook,
   getBooks,
@@ -11,7 +12,7 @@ import { asyncHandler } from '../middlewares';
 const router: Router = Router();
 
 router.get('/', asyncHandler(getBooks));
-router.post('/', asyncHandler(createBook));
+router.post('/', createBookValidator, asyncHandler(createBook));
 router.get('/:id', asyncHandler(getBook));
 router.put('/:id', asyncHandler(updateBook));
 router.delete('/:id', asyncHandler(deleteBook));

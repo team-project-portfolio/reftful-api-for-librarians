@@ -1,4 +1,4 @@
-import { Schema, model, connection, AnyObject } from 'mongoose';
+import { Schema, model, connection } from 'mongoose';
 import { IBook } from '../../types/book';
 
 const BookSchema: Schema = new Schema(
@@ -32,10 +32,6 @@ const BookSchema: Schema = new Schema(
       required: true,
     },
     price: {
-      type: String,
-      required: true,
-    },
-    update_date: {
       type: String,
       required: true,
     },

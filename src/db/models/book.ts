@@ -2,7 +2,7 @@ import { IBook, BookInfo, BookInfoById } from '../../types/book';
 import Book from '../schemas/book';
 
 interface IBookModel {
-  create(bookInfo: IBook): Promise<BookInfoById | null>;
+  create(bookInfo: BookInfo): Promise<BookInfoById | null>;
   findAll(): Promise<IBook[]>;
   findOne(bookId: string): Promise<IBook | null>;
   update(bookId: string, updateInfo: IBook): Promise<IBook | null>;
