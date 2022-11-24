@@ -42,3 +42,11 @@ ValidationError: Book validation failed: name: Path `name` is required., author:
 ValidationError: Book validation failed: author: Path `author` is required., country: Path `country` is required., gender: Path `gender` is required.
     at model.Document.invalidate (/home/kimkeonu/study/kku-homework-api-for-librarian/node_modules/mongoose/lib/document.js:3097:32)
 
+[2022. 11. 24. 오후 9:33:57] POST:/api/image-upload
+TypeError: Cannot read properties of undefined (reading 'catch')
+    at /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/errors/async-handler.ts:6:43
+
+[2022. 11. 24. 오후 9:35:20] POST:/api/image-upload
+TypeError: Cannot read properties of undefined (reading 'catch')
+    at /home/kimkeonu/study/kku-homework-api-for-librarian/src/middlewares/errors/async-handler.ts:6:43
+

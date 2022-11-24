@@ -1,6 +1,5 @@
 import { Request as Req, Response as Res, NextFunction as Next } from 'express';
 import Joi from 'joi';
-import { AppError } from '../errors';
 
 const createBookSchema = Joi.object({
   name: Joi.string().max(30).required().messages({

@@ -8,7 +8,6 @@ export interface IBook extends Document {
   year: string;
   ISBN: string;
   price: string;
-  update_date: string;
 }
 
 export interface BookInfo {
@@ -19,7 +18,6 @@ export interface BookInfo {
   year: string;
   ISBN: string;
   price: string;
-  update_date: string;
 }
 
 export interface BookInfoById extends BookInfo {
