@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface IBook extends Document {
+  id: string;
   name: string;
   author: string;
   country: string;
@@ -18,8 +19,4 @@ export interface BookInfo {
   year: string;
   ISBN: string;
   price: string;
-}
-
-export interface BookInfoById extends BookInfo {
-  id?: string;
 }

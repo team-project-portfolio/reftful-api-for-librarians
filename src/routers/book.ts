@@ -6,6 +6,7 @@ import {
   getBook,
   updateBook,
   deleteBook,
+  changeBookVisibilty,
 } from '../controllers';
 import { asyncHandler } from '../middlewares';
 
@@ -16,5 +17,6 @@ router.get('/', asyncHandler(getBooks));
 router.get('/:id', asyncHandler(getBook));
 router.put('/:id', asyncHandler(updateBook));
 router.delete('/:id', asyncHandler(deleteBook));
+router.patch('/:id', asyncHandler(changeBookVisibilty));
 
 export default router;

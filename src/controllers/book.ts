@@ -2,9 +2,9 @@ import { Response as Res, Request as Req, NextFunction as Next } from 'express';
 import {
   createBookService,
   getBooksService,
-  getBookService,
   updateBookService,
   deleteBookService,
+  changeBookVisibiltyService,
 } from '../services';
 
 const createBook = async (req: Req, res: Res, next: Next): Promise<Res> => {
@@ -20,7 +20,7 @@ const getBooks = async (req: Req, res: Res, next: Next): Promise<Res> => {
 
 const getBook = async (req: Req, res: Res, next: Next): Promise<Res> => {
   const { id } = req.params;
-  const book = await getBookService.getBook(id);
+  const book = await getBooksService.getBooks(id);
   return res.status(200).json(book);
 };
 
@@ -34,8 +34,25 @@ const updateBook = async (req: Req, res: Res, next: Next): Promise<Res> => {
 
 const deleteBook = async (req: Req, res: Res, next: Next): Promise<Res> => {
   const { id } = req.params;
-  const deletedBook = await deleteBookService.deleteBook(id);
-  return res.status(200).json(deletedBook);
+  const result = await deleteBookService.deleteBook(id);
+  return res.status(200).json(result);
 };
 
-export { createBook, getBooks, getBook, updateBook, deleteBook };
+const changeBookVisibilty = async (
+  req: Req,
+  res: Res,
+  next: Next,
+): Promise<Res> => {
+  const { id } = req.params;
+  const result = await changeBookVisibiltyService.changeVisibility(id);
+  return res.status(200).json(result);
+};
+
+export {
+  createBook,
+  getBooks,
+  getBook,
+  updateBook,
+  deleteBook,
+  changeBookVisibilty,
+};

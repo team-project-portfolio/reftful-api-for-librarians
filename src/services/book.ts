@@ -1,24 +1,21 @@
 import { IBookModel, bookModel } from '../db';
-import { IBook, BookInfo, BookInfoById } from '../types/book';
-import { AppError } from '../middlewares';
+import { IBook, BookInfo } from '../types/book';
+import { AppError, errorNames } from '../middlewares';
 
 class CreateBookService {
   constructor(private BookModel: IBookModel) {}
 
-  public async createBook(bookInfo: IBook): Promise<BookInfoById | null> {
+  public async createBook(bookInfo: BookInfo): Promise<IBook | null> {
     const isDuplicated = await this.hasDuplicate(bookInfo.ISBN);
-    console.log(isDuplicated);
     if (isDuplicated) {
       throw new AppError(
-        '리소스 중복',
+        errorNames.inputError,
         400,
         '해당 ISBN을 가진 도서 정보가 이미 존재합니다. 기존 도서 정보를 수정해 주세요!',
       );
     }
 
-    const formattedBookInfo = await this.formatBookInfo(bookInfo);
-
-    const newBook = await this.BookModel.create(formattedBookInfo);
+    const newBook = await this.BookModel.create(bookInfo);
     return newBook;
   }
 
@@ -26,28 +23,25 @@ class CreateBookService {
     const result = await this.BookModel.checkDuplicate(isbn);
     return result;
   }
-
-  private async formatBookInfo(bookInfo: IBook): Promise<IBook> {
-    const formattedBookInfo = bookInfo;
-    return formattedBookInfo;
-  }
 }
 
 class GetBooksService {
   constructor(private BookModel: IBookModel) {}
 
-  async getBooks() {
+  async getBooks(id?: string) {
+    if (id) {
+      const book: IBook | null = await this.BookModel.findOne(id);
+      if (!book) {
+        throw new AppError(
+          errorNames.inputError,
+          400,
+          '해당 ID에 존재하는 도서가 없어요 :( 다시 확인해 주세요!',
+        );
+      }
+      return book;
+    }
     const books: IBook[] = await this.BookModel.findAll();
     return books;
-  }
-}
-
-class GetBookService {
-  constructor(private BookModel: IBookModel) {}
-
-  async getBook(bookId: string) {
-    const book: IBook | null = await this.BookModel.findOne(bookId);
-    return book;
   }
 }
 
@@ -72,16 +66,25 @@ class DeleteBookService {
   }
 }
 
+class ChangeBookVisibility {
+  constructor(private BookModel: IBookModel) {}
+
+  async changeVisibility(bookId: string): Promise<Boolean> {
+    const result: Boolean = await this.BookModel.changeVisibility(bookId);
+    return result;
+  }
+}
+
 const createBookService = new CreateBookService(bookModel);
 const getBooksService = new GetBooksService(bookModel);
-const getBookService = new GetBookService(bookModel);
 const updateBookService = new UpdateBookService(bookModel);
 const deleteBookService = new DeleteBookService(bookModel);
+const changeBookVisibiltyService = new ChangeBookVisibility(bookModel);
 
 export {
   createBookService,
   getBooksService,
-  getBookService,
   updateBookService,
   deleteBookService,
+  changeBookVisibiltyService,
 };

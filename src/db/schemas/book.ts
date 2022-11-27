@@ -30,6 +30,8 @@ const BookSchema: Schema = new Schema(
     ISBN: {
       type: String,
       required: true,
+      unique: true,
+      index: true,
     },
     price: {
       type: String,
