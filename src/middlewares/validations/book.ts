@@ -12,11 +12,12 @@ const createBookSchema = Joi.object({
   year: Joi.number().min(1400).max(2022).required(),
   ISBN: Joi.string().min(10).max(12).required(),
   price: Joi.number().min(3000).max(300000).required(),
+  imageUrl: Joi.string().uri().required(),
 });
 
 export const createBookValidator = (req: Req, res: Res, next: Next) => {
   const result = createBookSchema.validate(req.body, { abortEarly: false });
-  if (result) {
+  if (result?.error) {
     res.status(400).json(result);
   }
   next();

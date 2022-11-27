@@ -1,2 +1,5 @@
 # Maradown
 *.md
+
+# TS
+tsconfig.json

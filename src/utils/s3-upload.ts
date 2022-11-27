@@ -5,7 +5,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 const generateUploadURL = async (fileName: string) => {
   const params = {
     Bucket: 'librarian-api',
-    Key: `${fileName}_${Date.now()}`,
+    Key: `books/${fileName}${Date.now()}`,
   };
   const command = new PutObjectCommand(params);
 

@@ -6,7 +6,9 @@ class CreateBookService {
   constructor(private BookModel: IBookModel) {}
 
   public async createBook(bookInfo: IBook): Promise<BookInfoById | null> {
-    if (await this.hasDuplicate(bookInfo.ISBN)) {
+    const isDuplicated = await this.hasDuplicate(bookInfo.ISBN);
+    console.log(isDuplicated);
+    if (isDuplicated) {
       throw new AppError(
         '리소스 중복',
         400,

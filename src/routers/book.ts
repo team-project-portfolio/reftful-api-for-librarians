@@ -11,8 +11,8 @@ import { asyncHandler } from '../middlewares';
 
 const router: Router = Router();
 
-router.get('/', asyncHandler(getBooks));
 router.post('/', createBookValidator, asyncHandler(createBook));
+router.get('/', asyncHandler(getBooks));
 router.get('/:id', asyncHandler(getBook));
 router.put('/:id', asyncHandler(updateBook));
 router.delete('/:id', asyncHandler(deleteBook));

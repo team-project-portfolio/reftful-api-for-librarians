@@ -12,7 +12,7 @@ function errorLogger(error: Error, req: Req, res: Res, next: Next) {
   const url = req.url;
   const errorContent = error.stack?.split('\n').slice(0, 2).join('\n');
 
-  logger.error(`[${timestamp}] ${method}:${url}\n${errorContent}\n\n`);
+  // logger.error(`[${timestamp}] ${method}:${url}\n${errorContent}\n\n`);
   const errorLog = `[${timestamp}] ${method}:${url}\n${errorContent}\n\n`;
 
   fs.appendFile('error.log', errorLog, (err) => {
