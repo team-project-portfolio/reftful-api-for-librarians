@@ -6,7 +6,7 @@ interface IBookModel {
   findAll(): Promise<IBook[]>;
   findOne(bookId: string): Promise<IBook | null>;
   update(bookId: string, updateInfo: IBook): Promise<IBook | null>;
-  delete(bookId: string): Promise<IBook | null>;
+  delete(bookId: string): Promise<Boolean>;
   checkDuplicate(isbn: string): Promise<Boolean>;
   changeVisibility(id: string): Promise<Boolean>;
 }
@@ -18,12 +18,12 @@ export class BookModel implements IBookModel {
   }
 
   async findAll(): Promise<IBook[]> {
-    const books: IBook[] = await Book.find({});
+    const books: IBook[] = await Book.find({}, '-_id -__v -visible');
     return books;
   }
 
   async findOne(bookId: string): Promise<IBook | null> {
-    const book = await Book.findOne({ id: bookId });
+    const book = await Book.findOne({ id: bookId }, '-_id -__v -visible');
     return book;
   }
 
@@ -36,23 +36,23 @@ export class BookModel implements IBookModel {
     return updatedBook;
   }
 
-  async delete(bookId: string): Promise<IBook | null> {
-    const deletedBook = await Book.findOneAndDelete({
+  async delete(bookId: string): Promise<Boolean> {
+    const result = await Book.deleteOne({
       id: bookId,
     });
-    return deletedBook;
+
+    return result.acknowledged ? true : false;
   }
 
   async checkDuplicate(isbn: string): Promise<Boolean> {
     const result = await Book.find({ ISBN: isbn }).countDocuments();
-    return result > 0 ? true : false;
+    return result === 1 ? true : false;
   }
 
   async changeVisibility(id: string): Promise<Boolean> {
-    const result = await Book.updateOne(
-      { id },
-      { visible: { $not: '$visible' } },
-    );
+    const result = await Book.updateOne({ id }, [
+      { $set: { visible: { $not: '$visible' } } },
+    ]);
     return result.acknowledged ? true : false;
   }
 }

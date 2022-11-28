@@ -4,10 +4,11 @@ import { IBook } from '../../types/book';
 const BookSchema: Schema = new Schema(
   {
     id: {
-      type: String,
+      type: Number,
       required: false,
+      index: true,
     },
-    name: {
+    title: {
       type: String,
       required: true,
     },
@@ -46,7 +47,7 @@ const BookSchema: Schema = new Schema(
       default: true,
     },
   },
-  { timestamps: true },
+  { collection: 'books', timestamps: true },
 );
 
 BookSchema.pre('save', async function () {
@@ -63,8 +64,8 @@ BookSchema.pre('save', async function () {
     },
   );
 
-  const id: string = sequence?.value?.value;
+  const id: number = sequence?.value?.value;
   this.set({ id });
 });
 
-export default model<IBook>('Book', BookSchema);
+export default model<IBook>('books', BookSchema);

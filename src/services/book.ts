@@ -60,9 +60,16 @@ class UpdateBookService {
 class DeleteBookService {
   constructor(private BookModel: IBookModel) {}
 
-  async deleteBook(bookId: string): Promise<IBook | null> {
-    const deletedBook: IBook | null = await this.BookModel.delete(bookId);
-    return deletedBook;
+  async deleteBook(bookId: string): Promise<Boolean> {
+    const result: Boolean = await this.BookModel.delete(bookId);
+    if (!result) {
+      throw new AppError(
+        errorNames.databaseError,
+        500,
+        'DB에서 알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해 주세요!',
+      );
+    }
+    return result;
   }
 }
 
@@ -71,6 +78,13 @@ class ChangeBookVisibility {
 
   async changeVisibility(bookId: string): Promise<Boolean> {
     const result: Boolean = await this.BookModel.changeVisibility(bookId);
+    if (!result) {
+      throw new AppError(
+        errorNames.databaseError,
+        500,
+        'DB에서 알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해 주세요!',
+      );
+    }
     return result;
   }
 }

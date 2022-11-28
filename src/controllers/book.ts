@@ -34,8 +34,8 @@ const updateBook = async (req: Req, res: Res, next: Next): Promise<Res> => {
 
 const deleteBook = async (req: Req, res: Res, next: Next): Promise<Res> => {
   const { id } = req.params;
-  const result = await deleteBookService.deleteBook(id);
-  return res.status(200).json(result);
+  await deleteBookService.deleteBook(id);
+  return res.sendStatus(204);
 };
 
 const changeBookVisibilty = async (
@@ -44,8 +44,8 @@ const changeBookVisibilty = async (
   next: Next,
 ): Promise<Res> => {
   const { id } = req.params;
-  const result = await changeBookVisibiltyService.changeVisibility(id);
-  return res.status(200).json(result);
+  await changeBookVisibiltyService.changeVisibility(id);
+  return res.sendStatus(204);
 };
 
 export {

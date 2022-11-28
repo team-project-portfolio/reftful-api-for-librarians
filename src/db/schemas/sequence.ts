@@ -1,16 +1,19 @@
 import { Schema, model } from 'mongoose';
 
-const SequenceSchema = new Schema({
-  collectionName: {
-    type: String,
-    required: true,
+const SequenceSchema = new Schema(
+  {
+    collectionName: {
+      type: String,
+      required: true,
+    },
+    value: {
+      type: Number,
+      default: 0,
+    },
   },
-  value: {
-    type: Number,
-    default: 0,
-  },
-});
+  { collection: 'sequences' },
+);
 
-const SequenceModel = model('Sequence', SequenceSchema);
+const SequenceModel = model('sequences', SequenceSchema);
 
 export { SequenceModel };
