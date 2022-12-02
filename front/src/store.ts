@@ -15,4 +15,4 @@ export type RootState = ReturnType<typeof store.getState>
 //ReturnType<>이 추론할 수 있도록, 함수의 반환 '값'아 아니라, type을 명시해주기 위해 typeof 사용 
 
 //store의 내장함수 getState(), .dispach(), .subscribe()
-//getState()는 스토어에 등록된 상태 정보 반환
+//getState()는 스토어에 등록된 상태 정보 반환!
