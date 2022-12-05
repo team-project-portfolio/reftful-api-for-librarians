@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import NotFound from './components/NotFound';
 
 
 
@@ -9,7 +10,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout />} />
       <Route path='api/books/:id' element={<Layout />} />
-
+      <Route path="*" element={<NotFound />}></Route>
     </Routes>
   )
 }

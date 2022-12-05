@@ -7,18 +7,13 @@ import { Book } from '../interface/interface';
 
 
 const BookList = () => {
-
-
-
     const [books, setBooks] = useState([]);
     // const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchBooks = async () => {
             const res = await axios.get('http://localhost:8000/api/books');
-
             setBooks(res.data);
-
         }
         fetchBooks();
     }, []);

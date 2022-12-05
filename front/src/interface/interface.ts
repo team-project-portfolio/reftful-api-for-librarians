@@ -13,4 +13,8 @@ interface Book {
 
 }
 
-export { Book };
+interface Files extends Event{
+ files: object
+}
+
+export { Book ,Files };
