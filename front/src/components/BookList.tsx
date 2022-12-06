@@ -16,7 +16,7 @@ const BookList = () => {
             setBooks(res.data);
         }
         fetchBooks();
-    }, [books]);
+    }, []);
 
     return (
         <Box sx={{ width: '100%' }}>
