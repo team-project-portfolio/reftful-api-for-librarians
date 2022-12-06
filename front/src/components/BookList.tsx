@@ -8,7 +8,6 @@ import { Book } from '../interface/interface';
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
-    // const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchBooks = async () => {

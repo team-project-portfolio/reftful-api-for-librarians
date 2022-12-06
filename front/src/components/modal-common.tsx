@@ -27,11 +27,11 @@ import { Liink } from '../utils/styled';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Book } from '../interface/interface';
 
-import { validateEmpty } from '../utils/validation/modal';
+import { validateLength } from '../utils/validation/modal';
 
 const Modal = () => {
   const { door, useImg } = useSelector((state: RootState) => state.modalSlice);
-  const SubmitData: any = useSelector((state: RootState) => state.submitSlice, shallowEqual);
+  const submitData = useSelector((state: RootState) => state.submitSlice, shallowEqual);
   const dispatch = useDispatch();
   const titleRefer = useRef<TextFieldProps>(null);
   const authorRefer = useRef<TextFieldProps>(null);
@@ -83,7 +83,7 @@ const Modal = () => {
       if (id) {
         const putBooks = async () => {
           try {
-            await axios.put(`http://localhost:8000/api/books/${id}`, SubmitData);
+            await axios.put(`http://localhost:8000/api/books/${id}`, submitData);
             alert('도서가 정상적으로 수정되었습니다');
             dispatch(close());
             navigate('/');
@@ -96,9 +96,10 @@ const Modal = () => {
       } else {
         const fetchBooks = async () => {
           try {
-            await axios.post('http://localhost:8000/api/books', SubmitData);
+            await axios.post('http://localhost:8000/api/books', submitData);
             alert('도서가 정상적으로 등록되었습니다');
             dispatch(close());
+            setValue(null);
           } catch (err) {
             alert('등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
           }
@@ -106,7 +107,7 @@ const Modal = () => {
         fetchBooks();
       }
     }
-  }, [SubmitData]);
+  }, [submitData]);
 
   const addFile = async (event: { target: HTMLInputElement }) => {
     //파일 등록되었을 때 S3 url 추출/ 파일 상태를 state에 저장
@@ -120,6 +121,7 @@ const Modal = () => {
   }
 
   const onSubmit = async () => {
+    let tmpData;
     try {
       //모달 수정에서 기존 이미지 사용 여부에 따라 유동적 
       let thumbnailUrl: string | undefined = '';
@@ -135,16 +137,14 @@ const Modal = () => {
         });
         thumbnailUrl = presignedUrl.split('?')[0];
       }
-      const title = titleRefer.current?.value;
-      const author = authorRefer.current?.value;
-      const country = countryRefer.current?.value;
-      const Isbn = ISBNRefer.current?.value;
-      const price = priceRefer.current?.value;
-      const year = dateRefer.current?.value;
+      const title: string | any = titleRefer.current?.value;
+      const author: string | any = authorRefer.current?.value;
+      const country: string | any = countryRefer.current?.value;
+      const Isbn: string | any = ISBNRefer.current?.value;
+      const price: string | any = priceRefer.current?.value;
+      const year: string | any = dateRefer.current?.value;
 
-      validateEmpty(title, author, country, Isbn, price, year, thumbnailUrl, gender);
-
-      dispatch(submitEtc({
+      tmpData = {
         title: title,
         author: author,
         country: country,
@@ -153,11 +153,16 @@ const Modal = () => {
         gender: gender,
         year: year,
         imageUrl: thumbnailUrl
-      }));
+      }
+
+      validateLength(tmpData);
+      dispatch(submitEtc(tmpData));
+     
     } catch (err) {
-      console.log(err);
-      alert('등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
+      alert(err);
     }
+    console.log(tmpData);
+    console.log(submitData)
   }
 
   return (

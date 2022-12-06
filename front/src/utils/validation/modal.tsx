@@ -1,9 +1,26 @@
+import { Book } from "../../interface/interface";
 
-const validateEmpty = (title: any, author: any, country: any, Isbn: any, price: any, year: any, thumbnailUrl: any, gender: any) => {
-    if (!title || !author || !country || !Isbn || !price || !year || !thumbnailUrl || !gender) {
-        alert('누락된 부분이 있습니다!');
-        return;
+const validateLength = (submitData: any) => {
+    const { title, author, country, ISBN, price, year, gender, imageUrl } = submitData;
+    if (title.length >= 30 || title.length < 1) {
+        throw 'title: 1자 이상 30자 미만으로 작성해 주세요'
+    } else if (author.length >= 20 || author.length < 1) {
+        throw 'author: 1자 이상 20자 미만으로 작성해 주세요'
+    } else if (country.length >= 15 || country.length < 1) {
+        throw 'country: 1자 이상 15자 미만으로 작성해 주세요'
+    } else if (ISBN.length >= 13 || ISBN.length < 9) {
+        throw 'ISBN: 9자 이상 13자 미만으로 작성해 주세요'
+    } else if (Number(price) > 30000 || Number(price) < 3000) {
+        throw 'price: 3000원 이상 300000원 미만으로 작성해 주세요'
+    } else if (Number(year) > 2022 || Number(year) < 1400) {
+        throw 'year: 연도는 1400년 위로 2022년 밑으로 작성해 주세요';
+    }
+    else if (!gender) {
+        throw '성별이 존재하지 않습니다'
+    }
+    else if (!imageUrl) {
+        throw '이미지 파일이 존재하지 않습니다';
     }
 }
 
-export {validateEmpty};
+export { validateLength };
