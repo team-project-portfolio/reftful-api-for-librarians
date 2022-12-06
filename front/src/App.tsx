@@ -9,7 +9,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Layout />} />
-      <Route path='api/books/:id' element={<Layout />} />
+      <Route path='post/books/:id' element={<Layout />} />
+      <Route path='delete/books/:id' element={<Layout />} />
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
   )
