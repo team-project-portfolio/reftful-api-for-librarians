@@ -4,18 +4,20 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import BookItem from './BookItem';
 import { Book } from '../interface/interface';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
-
+    const {changeChecked}=useSelector((state: RootState) => state.submitSlice);
     useEffect(() => {
         const fetchBooks = async () => {
             const res = await axios.get('http://localhost:8000/api/books');
             setBooks(res.data);
         }
         fetchBooks();
-    }, []);
+    }, [changeChecked]);
 
     return (
         <Box sx={{ width: '100%' }}>

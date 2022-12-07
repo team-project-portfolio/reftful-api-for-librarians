@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../store';
 import { closeD, openD } from '../utils/slices/modalSlice'
+import { upCheck } from '../utils/slices/submitSlice';
 import { Liink } from '../utils/styled';
 
 const style = {
@@ -35,6 +36,7 @@ const ModalDelete = () => {
             alert(err);
         }
         dispatch(closeD());
+        dispatch(upCheck());
         navigate('/');
     }
 

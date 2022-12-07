@@ -20,7 +20,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { close, checkImg } from '../utils/slices/modalSlice';
-import { submitEtc } from '../utils/slices/submitSlice';
+import { submitEtc, upCheck } from '../utils/slices/submitSlice';
 import { RootState } from '../store';
 import axios from 'axios';
 import { Liink } from '../utils/styled';
@@ -31,7 +31,7 @@ import { validateLength } from '../utils/validation/modal';
 
 const Modal = () => {
   const { door, useImg } = useSelector((state: RootState) => state.modalSlice);
-  const submitData = useSelector((state: RootState) => state.submitSlice, shallowEqual);
+  const { submitData } = useSelector((state: RootState) => state.submitSlice, shallowEqual);
   const dispatch = useDispatch();
   const titleRefer = useRef<TextFieldProps>(null);
   const authorRefer = useRef<TextFieldProps>(null);
@@ -44,8 +44,8 @@ const Modal = () => {
   const [value, setValue] = useState<Dayjs | null>(null);
   const [gender, setGender] = useState('');
   const [presignedUrl, setPresignedUrl] = useState('');
-  const [file, setFile] = useState<File>();
-  const [data, setData] = useState<Book | null>(null);
+  const [file, setFile] = useState<File|null>(); //변수로 바꿔도 됨
+  const [data, setData] = useState<Book | null>(null);//변수로 바꿔도 됨
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -86,6 +86,7 @@ const Modal = () => {
             await axios.put(`http://localhost:8000/api/books/${id}`, submitData);
             alert('도서가 정상적으로 수정되었습니다');
             dispatch(close());
+            dispatch(upCheck());
             navigate('/');
           } catch (err) {
             alert('수정에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
@@ -99,6 +100,7 @@ const Modal = () => {
             await axios.post('http://localhost:8000/api/books', submitData);
             alert('도서가 정상적으로 등록되었습니다');
             dispatch(close());
+            dispatch(upCheck());
             setValue(null);
           } catch (err) {
             alert('등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.');
@@ -123,18 +125,22 @@ const Modal = () => {
   const onSubmit = async () => {
     let tmpData;
     try {
-      //모달 수정에서 기존 이미지 사용 여부에 따라 유동적 
+      //모달 수정에서 기존 이미지 사용 여부에 따라 thumbnailUrl이 유동적 
       let thumbnailUrl: string | undefined = '';
       if (useImg) {
         thumbnailUrl = data?.imageUrl;
       }
       else {
         //S3에 이미지 등록
-        await axios.put(presignedUrl, file, {
-          headers: {
-            'Content-Type': file?.type,
-          },
-        });
+        try {
+          await axios.put(presignedUrl, file, {
+            headers: {
+              'Content-Type': file?.type,
+            },
+          });
+        } catch (err) {
+          throw '이미지 파일을 첨부해 주세요';
+        }
         thumbnailUrl = presignedUrl.split('?')[0];
       }
       const title: string | any = titleRefer.current?.value;
@@ -157,12 +163,17 @@ const Modal = () => {
 
       validateLength(tmpData);
       dispatch(submitEtc(tmpData));
-     
+      //임시 데이터 먼저 올림. 이 데이터에 썼던 몇몇 state는 초기화
+      setPresignedUrl('');
+      setGender('');
+      setFile(null);
+
     } catch (err) {
       alert(err);
     }
     console.log(tmpData);
     console.log(submitData)
+
   }
 
   return (
@@ -286,8 +297,11 @@ const Modal = () => {
               <p>본 이미지는 등록된 도서의 썸네일입니다. 하단의 버튼을 통해 이미지 사용 여부를
                 결정해 주세요.
               </p>
-              <Button onClick={() => { dispatch(checkImg(true)) }}>기존 이미지 사용</Button>
-              <Button onClick={() => { dispatch(checkImg(false)) }}>새 이미지 등록</Button>
+              {
+                useImg ?
+                 <Button onClick={() => { dispatch(checkImg(false)) }}>새 이미지 등록</Button>
+                :  <Button onClick={() => { dispatch(checkImg(true)) }}>기존 이미지 사용</Button>
+              }
             </div>
           </div>}
 
