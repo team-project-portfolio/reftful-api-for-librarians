@@ -44,7 +44,7 @@ const Modal = () => {
   const [value, setValue] = useState<Dayjs | null>(null);
   const [gender, setGender] = useState('');
   const [presignedUrl, setPresignedUrl] = useState('');
-  const [file, setFile] = useState<File|null>(); //변수로 바꿔도 됨
+  const [file, setFile] = useState<File | null>(); //변수로 바꿔도 됨
   const [data, setData] = useState<Book | null>(null);//변수로 바꿔도 됨
   const navigate = useNavigate();
   const { id } = useParams();
@@ -76,10 +76,10 @@ const Modal = () => {
 
   useEffect(() => {
     if (!mounted.current) {
-      //최초 렌더링 시에 실행. 마운트 시 실행 방지
+      //최초 렌더링 시에 실행. 마운트 때의 실행 방지
       mounted.current = true;
     } else {
-      //parmas를 통해 id가 있으면 모달은 수정으로 작동
+      //parmas에 id가 있으면 모달은 수정용으로 작동
       if (id) {
         const putBooks = async () => {
           try {
@@ -112,7 +112,7 @@ const Modal = () => {
   }, [submitData]);
 
   const addFile = async (event: { target: HTMLInputElement }) => {
-    //파일 등록되었을 때 S3 url 추출/ 파일 상태를 state에 저장
+    //파일 change 됐을 때 S3 url 추출/ 파일 상태를 state에 저장
     try {
       const { data } = await axios.post('http://localhost:8000/api/image-upload');
       setPresignedUrl(data);
@@ -126,9 +126,9 @@ const Modal = () => {
     let tmpData;
     try {
       //모달 수정에서 기존 이미지 사용 여부에 따라 thumbnailUrl이 유동적 
-      let thumbnailUrl: string | undefined = '';
+      let imageUrl: string | undefined = '';
       if (useImg) {
-        thumbnailUrl = data?.imageUrl;
+        imageUrl = data?.imageUrl;
       }
       else {
         //S3에 이미지 등록
@@ -141,12 +141,12 @@ const Modal = () => {
         } catch (err) {
           throw '이미지 파일을 첨부해 주세요';
         }
-        thumbnailUrl = presignedUrl.split('?')[0];
+        imageUrl = presignedUrl.split('?')[0];
       }
       const title: string | any = titleRefer.current?.value;
       const author: string | any = authorRefer.current?.value;
       const country: string | any = countryRefer.current?.value;
-      const Isbn: string | any = ISBNRefer.current?.value;
+      const ISBN: string | any = ISBNRefer.current?.value;
       const price: string | any = priceRefer.current?.value;
       const year: string | any = dateRefer.current?.value;
 
@@ -154,11 +154,11 @@ const Modal = () => {
         title: title,
         author: author,
         country: country,
-        ISBN: Isbn,
+        ISBN: ISBN,
         price: price,
         gender: gender,
         year: year,
-        imageUrl: thumbnailUrl
+        imageUrl: imageUrl,
       }
 
       validateLength(tmpData);
@@ -299,8 +299,8 @@ const Modal = () => {
               </p>
               {
                 useImg ?
-                 <Button onClick={() => { dispatch(checkImg(false)) }}>새 이미지 등록</Button>
-                :  <Button onClick={() => { dispatch(checkImg(true)) }}>기존 이미지 사용</Button>
+                  <Button onClick={() => { dispatch(checkImg(false)) }}>새 이미지 등록</Button>
+                  : <Button onClick={() => { dispatch(checkImg(true)) }}>기존 이미지 사용</Button>
               }
             </div>
           </div>}

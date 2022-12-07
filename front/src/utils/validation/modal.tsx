@@ -1,4 +1,4 @@
-import { Book } from "../../interface/interface";
+import { BookState } from "../../interface/interface";
 
 const validateLength = (submitData: any) => {
     const { title, author, country, ISBN, price, year, gender, imageUrl } = submitData;

@@ -25,7 +25,7 @@ const BookList = () => {
 
                 {
                     books.map((book: Book) => {
-                        return <Grid item xs={3}> <BookItem key={book.id} book={book} /></Grid>
+                        return <Grid item xs={3}> <BookItem key={`${book.title}-${book.id}`} book={book} /></Grid>
                     })
                 }
 

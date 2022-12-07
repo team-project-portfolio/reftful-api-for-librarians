@@ -17,11 +17,11 @@ interface BookState {
     author: string,
     country: string,
     gender: string,
-    id: number,
     imageUrl: string,
     price: string,
     title: string,
     year: string,
+    id: number
 }
 
 interface Files extends Event {
