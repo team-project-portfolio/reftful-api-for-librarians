@@ -11,4 +11,6 @@ const bookConsts = {
   PRICE_MAX: 300000,
 };
 
-export { bookConsts };
+const librarianConsts = {};
+
+export { bookConsts, librarianConsts };

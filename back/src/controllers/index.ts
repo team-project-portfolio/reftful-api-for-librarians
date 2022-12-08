@@ -9,3 +9,4 @@ const getImgUploadURL = async (req: Req, res: Res, next: Next) => {
 
 export { getImgUploadURL };
 export * from './book';
+export * from './librarian';
