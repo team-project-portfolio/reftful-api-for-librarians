@@ -6,7 +6,6 @@ const generateUploadURL = async (fileName: string) => {
   const params = {
     Bucket: 'librarian-api',
     Key: `${Date.now()}`,
-    ContentType: 'image',
   };
   const command = new PutObjectCommand(params);
 
