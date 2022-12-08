@@ -18,7 +18,6 @@ const Layout = () => {
     setValue(newValue);
   };
 
-
   return (
     <div>
       <Header>

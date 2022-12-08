@@ -1,5 +1,3 @@
-import { BookState } from "../../interface/interface";
-
 const validateLength = (submitData: any) => {
     const { title, author, country, ISBN, price, year, gender, imageUrl } = submitData;
     if (title.length >= 30 || title.length < 1) {

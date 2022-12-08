@@ -30,8 +30,9 @@ import { Book } from '../interface/interface';
 import { validateLength } from '../utils/validation/modal';
 
 const Modal = () => {
-  const { door, useImg } = useSelector((state: RootState) => state.modalSlice);
-  const { submitData } = useSelector((state: RootState) => state.submitSlice, shallowEqual);
+  const door = useSelector((state: RootState) => state.modalSlice.door);
+  const useImg = useSelector((state: RootState) => state.modalSlice.useImg);
+  const submitData = useSelector((state: RootState) => state.submitSlice.submitData);
   const dispatch = useDispatch();
   const titleRefer = useRef<TextFieldProps>(null);
   const authorRefer = useRef<TextFieldProps>(null);
@@ -39,16 +40,15 @@ const Modal = () => {
   const priceRefer = useRef<TextFieldProps>(null);
   const ISBNRefer = useRef<TextFieldProps>(null);
   const dateRefer = useRef<any>(null);
-  const mounted = useRef(false);
-  const mountedTwo = useRef(false);
+  const mounted = useRef<boolean>(false);
+  const mountedTwo = useRef<boolean>(false);
   const [value, setValue] = useState<Dayjs | null>(null);
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState<string>('');
   const [presignedUrl, setPresignedUrl] = useState('');
   const [file, setFile] = useState<File | null>(); //변수로 바꿔도 됨
   const [data, setData] = useState<Book | null>(null);//변수로 바꿔도 됨
   const navigate = useNavigate();
   const { id } = useParams();
-
 
   useEffect(() => {
     if (!mountedTwo.current) {
@@ -167,13 +167,11 @@ const Modal = () => {
       setPresignedUrl('');
       setGender('');
       setFile(null);
-
     } catch (err) {
       alert(err);
     }
     console.log(tmpData);
     console.log(submitData)
-
   }
 
   return (

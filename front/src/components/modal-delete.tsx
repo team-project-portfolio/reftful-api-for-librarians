@@ -53,13 +53,13 @@ const ModalDelete = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         정말 삭제하시겠습니까?
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 3, mb:2, fontWeight: 'fontWeightLight', fontSize: '19px' }} align='left'>
+                    <Typography id="modal-modal-description" sx={{ mt: 3, mb: 2, fontWeight: 'fontWeightLight', fontSize: '19px' }} align='left'>
                         한 번 삭제하면 되돌릴 수 없습니다. 신중하게 결정해 주세요.
                     </Typography>
-                    <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
-                    <Button size="large" color="error" onClick={onDelete}>삭제</Button>
-                    <Liink to='/'> <Button size="large" onClick={() => { dispatch(closeD()) }}>취소</Button></Liink>
-                    
+                    <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                        <Button size="large" color="error" onClick={onDelete}>삭제</Button>
+                        <Liink to='/'> <Button size="large" onClick={() => { dispatch(closeD()) }}>취소</Button></Liink>
+
                     </div>
                 </Box>
             </Modal>
