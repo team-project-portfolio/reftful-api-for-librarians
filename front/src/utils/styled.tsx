@@ -60,8 +60,7 @@ cursor: pointer;
     ${props => props.active && css`
       color: #524FA1;
       font-weight: bold;
-      background: rgba(230,230,230, 0.0001);
-      box-shadow: inset 0px -4px 0px #524FA1;
+      box-shadow: inset 0px -3px 0px #524FA1;
     `}
   `
 export const LoginInput = styled.input`
@@ -74,7 +73,7 @@ export const LoginInput = styled.input`
     padding: 13px;
     font-size: 22px;
      &:focus{
-      background-color: #C0F8FF;
+      background-color: #C8D0E6;
     outline: none;
      }
 `
@@ -85,6 +84,7 @@ height: 300px;
   &>label{
     font-size: 24px;
     margin-top: 20px;
+    margin-bottom: 5px;
   }
 
 `
