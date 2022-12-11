@@ -111,7 +111,7 @@ const Modal = () => {
     }
   }, [submitData]);
 
-  const addFile = async (event: { target: HTMLInputElement }) => {
+  const addFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     //파일 change 됐을 때 S3 url 추출/ 파일 상태를 state에 저장
     try {
       const { data } = await axios.post('http://localhost:8000/api/image-upload');

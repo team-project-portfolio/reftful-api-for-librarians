@@ -34,17 +34,16 @@ export const LoginBox = styled.div`
 `
 
 export const TabBox = styled.div`
-/* position: absolute;
-top: 15px; */
  display: flex;
     justify-content: center ;
     border-bottom: 1.5px solid #E1E2E4;
     width: 500px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     padding: 0px;
   `
 export const ContentBox = styled.div`
-  padding-bottom: 200px;
+
+  padding-bottom: 220px;
   `
 
 export const Tab = styled.div<{ active: boolean }>`
@@ -53,7 +52,6 @@ justify-content: center;
 cursor: pointer;
     font-size:20px;
     line-height: 10px;
-    margin-bottom: 0;
     width: 50%;
     padding: 10px;
    
@@ -67,8 +65,8 @@ export const LoginInput = styled.input`
   height: 22px;
     width: 320px;
     background-color: #F2FAFF;
-    border: 0;
-    border-radius: 12px;
+    border: 1px solid #C9CACC;
+    border-radius: 8px;
     outline: 1.5px solid #B2AFCA;
     padding: 13px;
     font-size: 22px;
@@ -81,10 +79,21 @@ export const LoginInput = styled.input`
 export const LoginForm = styled.form`
 width: 100%;
 height: 300px;
+display:flex;
+position: relative;
+flex-direction:column;
   &>label{
-    font-size: 24px;
-    margin-top: 20px;
+    font-size: 20px;
+    margin-top: 11px;
     margin-bottom: 5px;
   }
+  &>Button{
+    margin-top: 40px;
+  }
+`
+
+export const ErrorWord=styled.small`
+color: #D83167;
+font-weight: bold;
 
 `

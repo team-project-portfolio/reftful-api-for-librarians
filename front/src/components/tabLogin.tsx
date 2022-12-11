@@ -15,21 +15,19 @@ const Container = styled.div`
 const TabLogin = () => {
 
     const [value, setValue] = useState(0);
-    const tabs = ["로그인", "회원가입"];
     const onClick = (tab: number) => {
         setValue(tab);
     }
 
-    const data = [
+    const tabs = [
         {
-            menu: "로그인",
-            content: <Login/>
+            name: "로그인",
+            content: <Login />
         },
         {
-            menu: "회원가입",
-            content: <SignUp/>
+            name: "회원가입",
+            content: <SignUp  setValue={setValue}/>
         },
-
     ]
 
     return (
@@ -38,15 +36,15 @@ const TabLogin = () => {
                 <TabBox >
                     {tabs.map((tab, i) => {
                         return <Tab
-                            key={`${tab}-${i}`}
+                            key={`${tab.name}-${i}`}
                             onClick={() => { onClick(i) }}
                             active={i === value}>
-                            <p>{tab}</p></Tab>
+                            <p>{tab.name}</p></Tab>
                     })
                     }
                 </TabBox>
                 <ContentBox>
-                    {data[value].content}
+                    {tabs[value].content}
                 </ContentBox>
             </LoginBox>
         </Container>

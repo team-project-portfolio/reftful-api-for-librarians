@@ -24,9 +24,16 @@ interface BookState {
     id: number
 }
 
+interface SingUpData{
+    name: string,
+    email: string,
+    password: string,
+    passwordCheck: string,
+}
+
 
 interface Files extends Event {
     files: object
 }
 
-export { Book, BookState, Files };
+export { Book, BookState, Files, SingUpData };
